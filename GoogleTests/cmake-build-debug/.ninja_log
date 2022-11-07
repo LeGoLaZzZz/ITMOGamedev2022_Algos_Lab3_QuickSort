@@ -1,0 +1,9 @@
+# ninja log v5
+1	50	6895164654572921	CMakeFiles/GoogleTests_run.dir/Lab3QuickSortTests.obj	f55ef4b31b0008ca
+7	620	6895164660274183	lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj	71532146843a5e0d
+4	1479	6895164668839667	lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj	9e99db30f8c7c53c
+1497	1545	6895164669459806	lib/gtest.lib	aeb66a2baec5eecf
+1545	1572	6895164669789879	lib/gtest_main.lib	3aa4fa19f4c436d2
+1572	2248	6895164676392616	GoogleTests_run.exe	8bc079ff2e1dd529
+0	727	6895165305743335	CMakeFiles/GoogleTests_run.dir/Lab3QuickSortTests.obj	f55ef4b31b0008ca
+0	789	6895165894797264	CMakeFiles/GoogleTests_run.dir/Lab3QuickSortTests.obj	f55ef4b31b0008ca
