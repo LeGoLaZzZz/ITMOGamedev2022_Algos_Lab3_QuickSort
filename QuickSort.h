@@ -6,19 +6,32 @@
 template<typename T, typename Compare>
 void insert_sort(T *first, T *last, Compare comp) {
 
-    if (first == last)
-        return;
-    T x;
-    T *j;
-    for (T *i = first; i <= last; i++) {
-        j = i;
-        x = (*i);
-        while (j > first && comp(x, *(j - 1))) {
-            *j = std::move(*(j - 1));
+    for (auto i = first; i <= last; i++)
+    {
+        auto j = i - 1;
+
+        T value = *(j + 1);
+        while (j >= first && comp(value, *j))
+        {
+            *(j + 1) = std::move(*j);
             j--;
         }
-        *j = std::move(x);
+        *(j + 1) = value;
     }
+
+//    if (first == last)
+//        return;
+//    T x;
+//    T *j;
+//    for (T *i = first; i <= last; i++) {
+//        j = i;
+//        x = (*i);
+//        while (j > first && comp(x, *(j - 1))) {
+//            *j = std::move(*(j - 1));
+//            j--;
+//        }
+//        *j = std::move(x);
+//    }
 }
 
 
@@ -30,10 +43,10 @@ void quick_sort(T *first, T *last, Compare comp) {
 
     while (firstPointer < lastPointer) {
 
-        if (lastPointer - firstPointer < 5) {
-            insert_sort(firstPointer, lastPointer, comp);
-            return;
-        }
+//        if (lastPointer - firstPointer < 5) {
+//            insert_sort(firstPointer, lastPointer, comp);
+//            return;
+//        }
 
         T *midPointer = firstPointer + (lastPointer - firstPointer) / 2;
 
