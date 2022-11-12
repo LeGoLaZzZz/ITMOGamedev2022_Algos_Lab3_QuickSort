@@ -11,10 +11,11 @@ ydataInsert = []
 for line in lines:
     sp = line.split()
     print(sp)
-    xdataQuick.append(sp[0])
-    xdataInsert.append(sp[0])
-    ydataQuick.append(sp[1])
-    ydataInsert.append(sp[2])
+
+    xdataQuick.append(float(sp[0]))
+    xdataInsert.append(float(sp[0]))
+    ydataQuick.append(float(sp[1]))
+    ydataInsert.append(float(sp[2]))
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)

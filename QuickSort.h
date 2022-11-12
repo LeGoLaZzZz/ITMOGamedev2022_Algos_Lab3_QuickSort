@@ -5,48 +5,37 @@
 
 template<typename T, typename Compare>
 void insert_sort(T *first, T *last, Compare comp) {
-
-    for (auto i = first; i <= last; i++)
-    {
-        auto j = i - 1;
-
-        T value = *(j + 1);
-        while (j >= first && comp(value, *j))
-        {
-            *(j + 1) = std::move(*j);
+    if (first == last)
+        return;
+    T x;
+    T *j;
+    for (T *i = first; i <= last; i++) {
+        j = i;
+        x = (*i);
+        while (j > first && comp(x, *(j - 1))) {
+            *j = std::move(*(j - 1));
             j--;
         }
-        *(j + 1) = value;
+        *j = std::move(x);
     }
-
-//    if (first == last)
-//        return;
-//    T x;
-//    T *j;
-//    for (T *i = first; i <= last; i++) {
-//        j = i;
-//        x = (*i);
-//        while (j > first && comp(x, *(j - 1))) {
-//            *j = std::move(*(j - 1));
-//            j--;
-//        }
-//        *j = std::move(x);
-//    }
 }
 
 
 template<typename T, typename Compare>
-void quick_sort(T *first, T *last, Compare comp) {
+void quick_sort(T *first, T *last, Compare comp, bool useInsertion = true) {
 
     T *firstPointer = first;
     T *lastPointer = last;
 
     while (firstPointer < lastPointer) {
+        if (useInsertion) {
 
-//        if (lastPointer - firstPointer < 5) {
-//            insert_sort(firstPointer, lastPointer, comp);
-//            return;
-//        }
+            if (lastPointer - firstPointer < 16) {
+                insert_sort(firstPointer, lastPointer, comp);
+                return;
+            }
+        }
+
 
         T *midPointer = firstPointer + (lastPointer - firstPointer) / 2;
 
@@ -68,10 +57,10 @@ void quick_sort(T *first, T *last, Compare comp) {
         }
 
         if (lastPointer - j > j - firstPointer) {
-            quick_sort(firstPointer, j, comp); // left part to recursive
+            quick_sort(firstPointer, j, comp, useInsertion); // left part to recursive
             firstPointer = j + 1; // right part to while
         } else {
-            quick_sort(j + 1, lastPointer, comp); // right part to recursive
+            quick_sort(j + 1, lastPointer, comp, useInsertion); // right part to recursive
             lastPointer = j; // left part to while
         }
 

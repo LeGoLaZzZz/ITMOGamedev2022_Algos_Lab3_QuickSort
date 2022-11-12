@@ -39,8 +39,8 @@ struct PerformanceMeasureResult {
     int arraySize;
 };
 
-template<typename T, typename Compare, typename RandomElemFunc>
-PerformanceMeasureResult StartMeasure(int arraySize, Compare comp, RandomElemFunc randomElemFunc) {
+template<typename T, typename Compare, typename GetElemFunc>
+PerformanceMeasureResult StartMeasure(int arraySize, Compare comp, GetElemFunc getElemFunc) {
 
     srand(time(nullptr));
 
@@ -48,17 +48,19 @@ PerformanceMeasureResult StartMeasure(int arraySize, Compare comp, RandomElemFun
     T *insertSorted = new T[arraySize];
 
     for (int i = 0; i < arraySize; ++i) {
-        T elem = randomElemFunc();
+        T elem = getElemFunc(arraySize - i);
         quickSorted[i] = elem;
         insertSorted[i] = elem;
+//        std::cout << arraySize - i;
     }
 
     StartCounter();
-    quick_sort(quickSorted, quickSorted + arraySize - 1, comp);
+    quick_sort(quickSorted, quickSorted + arraySize - 1, comp, false);
     auto quickTime = GetCounter();
 
     StartCounter();
     insert_sort(insertSorted, insertSorted + arraySize - 1, comp);
+//    quick_sort(insertSorted, insertSorted + arraySize - 1, comp,true);
     auto insertTime = GetCounter();
     delete[] quickSorted;
     delete[] insertSorted;
@@ -71,17 +73,16 @@ int main() {
     std::fstream fs;
     fs.open("./performanceResults.txt", std::fstream::out | std::ofstream::trunc);
 
-    const int measureCount = 10;
-    for (int i = 0; i < 10000; ++i) {
+    const int measureCount = 100;
+    for (int i = 0; i < 40; ++i) {
 
-        if (i % 1000 != 0) continue;
         double quickSum = 0;
         double insertSum = 0;
 
         for (int j = 0; j < measureCount; ++j) {
-//            auto result = StartMeasure<int>(i, [](int a, int b) { return a < b; }, []() { return rand() % 100; });
-            auto result = StartMeasure<std::string>(i, [](std::string a, std::string b) { return a < b; },
-                                                    []() { return std::to_string(rand() % 100); });
+            auto result = StartMeasure<int>(i, [](int a, int b) { return a < b; }, [](int ttt) { return ttt; });
+//            auto result = StartMeasure<std::string>(i, [](std::string a, std::string b) { return a < b; },
+//                                                    [](int i) { return std::to_string(i); });
             quickSum += result.quickTime;
             insertSum += result.insertionTime;
         }

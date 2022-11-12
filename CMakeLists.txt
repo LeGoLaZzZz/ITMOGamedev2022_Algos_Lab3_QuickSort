@@ -3,5 +3,5 @@ project(Lab3QuickSort)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Lab3QuickSort main.cpp QuickSort.h ./matplotlib-cpp-master/matplotlibcpp.h )
+add_executable(Lab3QuickSort main.cpp QuickSort.h)
 add_subdirectory(GoogleTests)
